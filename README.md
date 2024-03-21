@@ -1,0 +1,2 @@
+# myVLC_for_android
+这是一个用于个人测试使用的VLC安卓代码，用于增加适用于个人的vlc功能
