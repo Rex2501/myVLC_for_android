@@ -94,6 +94,28 @@ class VideoTouchDelegate(private val player: VideoPlayerActivity,
     private val seekContainer: ConstraintLayout by lazy { player.findViewById(R.id.seekContainer) }
     private val seekBackground: FrameLayout by lazy { player.findViewById(R.id.seek_background) }
 
+    public var LONG_CLICK_TIME:Int = 1500;
+    public var time_longclick:Long = 0;
+    public var isLongClick2:Boolean = false;
+    public var  stoped:Boolean = false;
+
+    inner  class MyThread : Thread() {
+        override  fun run() {
+            Log.d(this::class.java.simpleName,"[hyf_DEBUG]---------------开始计时-------------------");
+            while (System.currentTimeMillis() - time_longclick < LONG_CLICK_TIME && !stoped) ;
+            if(stoped)
+            {
+                Log.d(this::class.java.simpleName,"[hyf_DEBUG]---------------stop-------------------"); 
+                return
+            }
+            Log.d(this::class.java.simpleName,"[hyf_DEBUG]-----------------长按事件发生-----------------");
+            isLongClick2 = true;
+            //这里加入调用倍速的函数
+            player.doPlayLongClick()
+            return 
+        }
+    }
+
     companion object {
         private const val TAG = "VLC/VideoTouchDelegate"
         private const val SEEK_TIMEOUT = 750L
@@ -156,6 +178,9 @@ class VideoTouchDelegate(private val player: VideoPlayerActivity,
                 val now = System.currentTimeMillis()
                 when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
+                        time_longclick = now
+                        stoped = false;
+                        MyThread().start();
                         touchDownMs = now
                         verticalTouchActive = false
                         // Audio
@@ -175,6 +200,8 @@ class VideoTouchDelegate(private val player: VideoPlayerActivity,
                         // Mouse events for the core
                         player.sendMouseEvent(MotionEvent.ACTION_MOVE, xTouch, yTouch)
 
+                        if(isLongClick2 == true){}
+                        else
                         if (player.fov == 0f) {
                             // No volume/brightness action if coef < 2 or a secondary display is connected
                             //TODO : Volume action when a secondary display is connected
@@ -204,6 +231,18 @@ class VideoTouchDelegate(private val player: VideoPlayerActivity,
                         }
                     }
                     MotionEvent.ACTION_UP -> {
+                                                stoped = true;
+                        if(isLongClick2 == true)
+                        {
+                            isLongClick2  = false;
+                            //这里调用恢复原本的速度的函数
+                            player.doPlayLongClick()
+                            //player.doPlayPause()
+                            //seekDelta(3000)
+                            Log.d(this::class.java.simpleName,"[my_DEBUG]-----------------恢复原速-----------------");
+                            
+                            return true
+                        }
                         if ((touchControls and TOUCH_FLAG_SCREENSHOT == TOUCH_FLAG_SCREENSHOT) && touchAction == TOUCH_SCREENSHOT) {
                             player.takeScreenshot()
                             return true
@@ -327,6 +366,7 @@ class VideoTouchDelegate(private val player: VideoPlayerActivity,
         val brightness = touchControls and TOUCH_FLAG_BRIGHTNESS != 0
         if (!audio && !brightness)
             return
+        stoped = true
         if (rightAction) {
             if (audio) doVolumeTouch(y_changed)
             else doBrightnessTouch(y_changed)
@@ -345,6 +385,7 @@ class VideoTouchDelegate(private val player: VideoPlayerActivity,
             if (abs(gesturesize) < 1 || !player.service!!.isSeekable) return
 
             if (touchAction != TOUCH_NONE && touchAction != TOUCH_TAP_SEEK) return
+            stoped = true
             touchAction = TOUCH_TAP_SEEK
 
             val length = player.service!!.length
