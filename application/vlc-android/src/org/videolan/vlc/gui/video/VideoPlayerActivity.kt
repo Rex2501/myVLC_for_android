@@ -1869,7 +1869,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     fun doPlayPause() {
         if (service?.isPausable != true) return
         if (service?.isPlaying == true) {
-            overlayDelegate.showOverlayTimeout(OVERLAY_INFINITE)
+            //i don`t need it
+            //overlayDelegate.showOverlayTimeout(OVERLAY_INFINITE)
             pause()
         } else {
             if (Settings.videoHudDelay != -1) handler.sendEmptyMessageDelayed(FADE_OUT, 800L)
