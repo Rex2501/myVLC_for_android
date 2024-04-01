@@ -291,7 +291,7 @@ class VideoTouchDelegate(private val player: VideoPlayerActivity,
                                 // (touchControls and TOUCH_FLAG_DOUBLE_TAP_SEEK != 0) && event.x > range * 0.75 -> seekDelta(org.videolan.tools.Settings.videoDoubleTapJumpDelay * 1000)
                                 // else -> if (touchControls and TOUCH_FLAG_PLAY != 0) player.doPlayPause()
                                     (touchControls and TOUCH_FLAG_PLAY != 0) ->{
-                                        Log.d(this::class.java.simpleName, "[myDEBUG] PAUSE")
+                                        Log.d(this::class.java.simpleName, "[my2DEBUG] PAUSE")
                                         player.doPlayPause()
                                         }
                             }
