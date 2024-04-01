@@ -1862,6 +1862,10 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         if (menuIdx >= 0) service?.titleIdx = menuIdx
     }
 
+    fun doPlayLongClick() {
+        service?.resetRate()
+    }
+
     fun doPlayPause() {
         if (service?.isPausable != true) return
         if (service?.isPlaying == true) {
