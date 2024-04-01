@@ -100,6 +100,7 @@ class PlaybackService : MediaBrowserServiceCompat(), LifecycleOwner, CoroutineSc
 
     private var position: Long = -1L
     private val dispatcher = ServiceLifecycleDispatcher(this)
+    private var last_rate :Float = 3.0F
 
     internal var enabledActions = PlaybackAction.createBaseActions()
     lateinit var playlistManager: PlaylistManager
@@ -1565,17 +1566,21 @@ class PlaybackService : MediaBrowserServiceCompat(), LifecycleOwner, CoroutineSc
 
     @MainThread
     fun increaseRate() {
-        if (rate < 4) setRate(rate + 0.2F, true)
+        if (rate < 4) setRate(rate + 0.5F, true)
     }
 
     @MainThread
     fun decreaseRate() {
-        if (rate > 0.4) setRate(rate - 0.2F, true)
+        if (rate > 1) setRate(rate - 0.5F, true)
+        else if (rate > 0.4) setRate(rate - 0.2F, true)
     }
 
     @MainThread
     fun resetRate() {
-        setRate(1F, true)
+        val A =rate
+        setRate(last_rate, true)
+        last_rate = A
+        //setRate(1F, true)
     }
 
     @MainThread

@@ -1236,10 +1236,12 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 }
                 return true
             }
+            /* 
             KeyEvent.KEYCODE_Z -> {
                 resizeVideo()
                 return true
             }
+            */
             KeyEvent.KEYCODE_VOLUME_DOWN -> {
                 volumeDown()
                 return true
@@ -1252,10 +1254,12 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 onAudioSubClick(if (overlayDelegate.isHudBindingInitialized()) overlayDelegate.hudBinding.playerOverlayTracks else null)
                 return true
             }
+            /* 
             KeyEvent.KEYCODE_C -> {
                 resizeVideo()
                 return true
             }
+            */
         }
         if (playerKeyListenerDelegate.onKeyDown(keyCode, event)) return true
         return super.onKeyDown(keyCode, event)
@@ -1862,10 +1866,15 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         if (menuIdx >= 0) service?.titleIdx = menuIdx
     }
 
+    fun doPlayLongClick() {
+        service?.resetRate()
+    }
+
     fun doPlayPause() {
         if (service?.isPausable != true) return
         if (service?.isPlaying == true) {
-            overlayDelegate.showOverlayTimeout(OVERLAY_INFINITE)
+            //i don`t need it
+            //overlayDelegate.showOverlayTimeout(OVERLAY_INFINITE)
             pause()
         } else {
             if (Settings.videoHudDelay != -1) handler.sendEmptyMessageDelayed(FADE_OUT, 800L)

@@ -85,17 +85,17 @@ class PlayerKeyListenerDelegate(private val keycodeListener: KeycodeListener) {
                 }
                 true
             }
-            KeyEvent.KEYCODE_PLUS -> {
+            KeyEvent.KEYCODE_PLUS ,KeyEvent.KEYCODE_C -> {
                 keycodeListener.increaseRate()
                 true
             }
-            KeyEvent.KEYCODE_EQUALS -> {
+            KeyEvent.KEYCODE_EQUALS,KeyEvent.KEYCODE_Z -> {
                 if (event.isShiftPressed) {
                     keycodeListener.increaseRate()
                 } else keycodeListener.resetRate()
                 true
             }
-            KeyEvent.KEYCODE_MINUS -> {
+            KeyEvent.KEYCODE_MINUS , KeyEvent.KEYCODE_X-> {
                 keycodeListener.decreaseRate()
                 true
             }

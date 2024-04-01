@@ -1,3 +1,5 @@
+# myVLC_for_android
+这是一个用于个人测试使用的VLC安卓代码，用于增加适用于个人的vlc功能
 # VLC for Android
 
 This is the official **Android** port of [VLC](https://videolan.org/vlc/).
@@ -5,17 +7,22 @@ This is the official **Android** port of [VLC](https://videolan.org/vlc/).
 VLC on Android plays all the same files as the classical version of VLC, and features a media database
 for Audio and Video files and stream.
 
-- [Project Structure](#project-structure)
-- [LibVLC](#libvlc)
-- [License](#license)
-- [Build](#build)
-  - [Build Application](#build-application)
-  - [Build LibVLC](#build-libvlc)
-- [Contribute](#contribute)
-  - [Pull requests](#pull-requests)
-  - [Translations](#translations)
-- [Issues and feature requests](#issues-and-feature-requests)
-- [Support](#support)
+- [myVLC\_for\_android](#myvlc_for_android)
+- [VLC for Android](#vlc-for-android)
+  - [Project Structure](#project-structure)
+  - [LibVLC](#libvlc)
+  - [License](#license)
+  - [Build](#build)
+    - [Build Application](#build-application)
+    - [Build LibVLC](#build-libvlc)
+      - [Setup](#setup)
+      - [Build](#build-1)
+      - [Medialibrary](#medialibrary)
+  - [Contribute](#contribute)
+    - [Pull requests](#pull-requests)
+    - [Translations](#translations)
+  - [Issues and feature requests](#issues-and-feature-requests)
+  - [Support](#support)
 
 ## Project Structure
 
