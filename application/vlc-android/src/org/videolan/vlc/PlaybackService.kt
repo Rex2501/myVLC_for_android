@@ -1565,12 +1565,13 @@ class PlaybackService : MediaBrowserServiceCompat(), LifecycleOwner, CoroutineSc
 
     @MainThread
     fun increaseRate() {
-        if (rate < 4) setRate(rate + 0.2F, true)
+        if (rate < 4) setRate(rate + 0.5F, true)
     }
 
     @MainThread
     fun decreaseRate() {
-        if (rate > 0.4) setRate(rate - 0.2F, true)
+        if (rate > 1) setRate(rate - 0.5F, true)
+        else if (rate > 0.4) setRate(rate - 0.2F, true)
     }
 
     @MainThread
