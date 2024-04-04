@@ -25,8 +25,9 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
             - 名稱：快取
-  使用：actions/cache@v4.0.2
-  和：
+  使用： actions/cache@v4.0.2 和：
+
+
     # 要快取和復原的檔案、目錄和通配符模式的列表
     小路：
     # 用於復原和保存快取的明確金鑰
