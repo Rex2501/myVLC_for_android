@@ -1,0 +1,88 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Build with Gradle
+      run: ./gradlew build
+            - 名稱：快取
+  使用：actions/cache@v4.0.2
+  和：
+    # 要快取和復原的檔案、目錄和通配符模式的列表
+    小路：
+    # 用於復原和保存快取的明確金鑰
+    鑰匙：
+    # 如果金鑰沒有發生快取命中，則用於恢復陳舊快取的有序密鑰清單。請注意，在這種情況下，“cache-hit”返回 false。
+    恢復密鑰：# 可選
+    # 上傳時用於分割大檔案的區塊大小，以位元組為單位
+    upload-chunk-size: # 可選
+    # 啟用時可選的布林值，允許 Windows 運行程序保存或恢復可以在其他平台上分別恢復或保存的緩存
+    enableCrossOsArchive: # 可選，預設為 false
+    # 如果未找到快取項目，則工作流程失敗
+    fail-on-cache-miss: # 可選，預設為 false
+    # 檢查給定輸入（key、restore-keys）是否存在快取項目，而不下載快取
+    Lookup-only: # 可選，預設為 false
+    # 運行後步驟以保存緩存，即使先前的另一個步驟失敗
+    save-always: # 可選，預設為 false            - 名稱：設定 Node.js 環境
+  使用：actions/setup-node@v4.0.2
+  和：
+    # 在 npmrc 中設定always-auth。
+    always-auth: # 可選，預設為 false
+    # 要使用的版本的版本規格。範例：12.x、10.15.1、>=10.15.0。
+    節點版本: # 可選
+    # 包含要使用的版本的版本規範的檔案。範例：package.json、.nvmrc、.node-version、.tool-versions。
+    節點版本檔: # 可選
+    # Node 使用的目標架構。範例：x86、x64。預設使用系統架構。
+    架構：# 可選
+    # 如果您希望操作檢查符合版本規範的最新可用版本，請設定此選項。
+    檢查最新: # 可選
+    # 用於設定身份驗證的可選註冊表。將在專案層級 .npmrc 和 .yarnrc 檔案中設定登錄，並設定驗證以從 env.NODE_AUTH_TOKEN 讀取。
+    註冊表 url: # 可選
+    # 針對範圍註冊表進行身份驗證的可選範圍。使用 GitHub Packages 註冊表 (https://npm.pkg.github.com/) 時將回退至儲存庫擁有者。
+    範圍：#可選
+    # 用於從節點版本中擷取節點發行版。由於存在預設值，因此使用者通常不會提供該預設值。在 github.com 上執行此操作時，預設值就足夠了。在 GHES 上運行時，如果遇到速率限制，您可以傳遞 github.com 的個人存取權杖。
+    token: # 可選，預設為 ${{ github.server_url == 'https://github.com' && github.token || '' }}
+    # 用於指定一個套件管理器在預設目錄中進行快取。支援的值：npm、yarn、pnpm。
+    快取: # 可選
+    # 用於指定依賴檔案的路徑：package-lock.json、yarn.lock等。支援通配符或檔案名稱列表，用於快取多個相依性。
+    快取依賴路徑: # 可選
+                - 名稱：下載建置工件
+  使用：actions/download-artifact@v4.1.4
+  和：
+    # 要下載的工件的名稱。如果未指定，則下載執行的所有工件。
+    名稱：# 可選
+    # 目標路徑。支援基本波浪線擴展。預設為 $GITHUB_WORKSPACE
+    路徑: # 可選
+    # 與應該下載的工件相符的全域模式。如果指定了名稱，則忽略。
+    模式：# 可選
+    # 當多個工件符合時，這會變更目標目錄的行為。如果為 true，下載的工件將位於路徑指定的相同目錄中。如果為 false，則下載的工件將被提取到指定路徑內的單獨命名目錄中。
+    merge-multiple: # 可選，預設為 false
+    # 用於透過 GitHub API 進行身份驗證的 GitHub 令牌。從不同的儲存庫或不同的工作流程執行下載工件時，這是必需的。如果未指定，該操作將嘗試從目前儲存庫和目前工作流程執行下載工件。
+    github-token: # 可選
+    # 儲存庫擁有者和儲存庫名稱透過「/」連接在一起。如果指定了 github-token，則這是將從中下載工件的儲存庫。
+    repository: # 可選，預設為 ${{ github.repository }}
+    # 上傳所需下載工件的工作流程所執行的 ID。如果指定了 github-token，則這是將從中下載工件的運行。
+    run-id: # 可選，預設為 ${{ github.run_id }}
+
+          
+
+          
